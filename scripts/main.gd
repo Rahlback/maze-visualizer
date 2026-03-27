@@ -4,6 +4,8 @@ extends Node2D
 @export var player_colors : PackedColorArray
 var current_color = 0
 var teamnames_and_color = {}
+var current_time: float = 0
+var speed_control: float = 1
 
 var teams_finished_with_phase := 0
 
@@ -20,6 +22,13 @@ const TEAMNAME_COLOR = preload("uid://b4tgg06vigtud")
 @onready var map_holder: Node2D = $MapHolder
 @onready var menus: Control = $CanvasLayer2/Menus
 @onready var teams_box: VBoxContainer = $Teams/TeamsBox
+@onready var label: Label = $Teams/Label
+@onready var time_label: RichTextLabel = $Teams/TimeLabel
+
+func _physics_process(delta: float) -> void:
+	current_time += delta * speed_control
+	time_label.text = "%.1f" % current_time
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -78,7 +87,6 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 			teams_box.add_child(new_team)
 
 func play_next_phase() -> void:
-
 	if current_phase == len(phases):
 		current_phase = -1
 		print_debug("Abort play. Already played")
@@ -89,6 +97,7 @@ func play_next_phase() -> void:
 			child.play_phase(phases[current_phase])
 	
 	label.text = phases[current_phase]
+	current_time = 0
 func team_finished_phase(_anim_name: String) -> void:
 	teams_finished_with_phase += 1
 	print("Teams finished with phase: " + str(phases[current_phase]) + " = " + str(teams_finished_with_phase))
@@ -97,9 +106,10 @@ func team_finished_phase(_anim_name: String) -> void:
 		current_phase += 1
 		if auto_play_phases:
 			play_next_phase()
-@onready var label: Label = $Teams/Label
 
 func _on_canvas_layer_2_play_button_pressed() -> void:
+	time_label.show()
+	current_time = 0
 	for child in map_holder.get_children():
 		if child is PlayerAnimatorV3:
 			if current_phase == -1 or current_phase >= len(phases):
@@ -114,6 +124,7 @@ func _on_canvas_layer_2_play_button_pressed() -> void:
 		label.text = phases[current_phase]
 
 func _on_canvas_layer_2_playback_speed_changed(speed: float) -> void:
+	speed_control = speed
 	for child in map_holder.get_children():
 		if child is PlayerAnimatorV3:
 			child.speed_control = speed

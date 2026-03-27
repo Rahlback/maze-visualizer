@@ -62,11 +62,36 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="Teams" unique_id=1668437255]
-offset_left = 1555.0
-offset_top = 109.0
-offset_right = 1595.0
-offset_bottom = 127.0
+anchors_preset = -1
+anchor_left = 0.855
+anchor_top = 0.264
+anchor_right = 0.855
+anchor_bottom = 0.264
+offset_left = 191.3999
+offset_top = -255.12
+offset_right = 231.3999
+offset_bottom = -203.12
+grow_horizontal = 0
 theme_override_font_sizes/font_size = 48
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeLabel" type="RichTextLabel" parent="Teams" unique_id=655395281]
+visible = false
+anchors_preset = -1
+anchor_left = 0.96495837
+anchor_top = 0.074
+anchor_right = 0.99100006
+anchor_bottom = 0.074
+offset_left = -90.72009
+offset_top = 0.08000183
+offset_right = -23.720093
+offset_bottom = 40.08
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 48
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [connection signal="file_dialog_dir_selected" from="CanvasLayer2" to="." method="_on_canvas_layer_2_file_dialog_dir_selected"]
 [connection signal="pause_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_pause_button_pressed"]

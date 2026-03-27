@@ -2,6 +2,7 @@ extends Node2D
 class_name MazeParser
 
 @onready var maze_viewer: MazeView = $MazeViewer
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 const MAZE_DATA_PATH := "C:\\Users\\jjy322\\OneDrive - AFRY\\Documents\\code_challenge\\maze_data"
 var test_map := "res://test_docs/map1_test.txt"
@@ -50,6 +51,7 @@ func parse_map_data(filename: String):
 
 		coord.y += 1
 	maze_viewer.setup_corners()
+	point_light_2d.position = middle_coord * 32 + Vector2i(16, 16)
 	queue_redraw()
 
 

@@ -15,6 +15,38 @@ const MOVE_STRAIGHT_TIME = 1
 signal player_animation_done(anim_name: String)
 
 var moves = {"phase1": [], "phase2": [], "return": []}
+var dir_tracker = {	DIR.DOWN: 
+					{
+						DIR.RIGHT: ROTATE_DIR.LEFT, 
+						DIR.LEFT: ROTATE_DIR.RIGHT, 
+						DIR.UP: ROTATE_DIR.BACK, 
+						DIR.DOWN: ROTATE_DIR.NONE
+					},
+					DIR.RIGHT:
+					{
+						DIR.LEFT: ROTATE_DIR.BACK,
+						DIR.RIGHT: ROTATE_DIR.NONE,
+						DIR.UP: ROTATE_DIR.LEFT,
+						DIR.DOWN: ROTATE_DIR.RIGHT
+					},
+					DIR.UP:
+					{
+						DIR.LEFT: ROTATE_DIR.LEFT,
+						DIR.RIGHT: ROTATE_DIR.RIGHT,
+						DIR.UP: ROTATE_DIR.NONE,
+						DIR.DOWN: ROTATE_DIR.BACK
+					},
+					DIR.LEFT:
+					{
+						DIR.LEFT: ROTATE_DIR.NONE,
+						DIR.RIGHT: ROTATE_DIR.BACK,
+						DIR.UP: ROTATE_DIR.RIGHT,
+						DIR.DOWN: ROTATE_DIR.LEFT
+					}
+				}
+enum DIR {LEFT, RIGHT, UP, DOWN, NONE}
+enum ROTATE_DIR {LEFT, RIGHT, BACK, NONE}
+
 var score
 
 var move_index = 0
@@ -33,7 +65,27 @@ class Move:
 
 	func rotation_angle() -> float:
 		return from.angle_to_point(to)
-
+	
+	func get_direction() -> DIR:
+		var x_diff = from.x - to.x
+		var y_diff = from.y - to.y
+		if x_diff < 0:
+			return DIR.RIGHT
+		elif x_diff > 0:
+			return DIR.LEFT
+		elif y_diff < 0:
+			return DIR.DOWN
+		elif y_diff > 0:
+			return DIR.UP
+		else:
+			return DIR.NONE
+	
+	func compare_direction(previous_move: Move, dir_tracker):
+		var previous_dir = previous_move.get_direction()
+		var current_dir = get_direction()
+		
+		return dir_tracker[previous_dir][current_dir]
+		
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +94,8 @@ func _ready() -> void:
 	$PointLight2D.color = rand_color
 
 func compare_floats(a: float, b: float) -> bool:
+	a = wrapf(a, -PI, PI)
+	b = wrapf(b, -PI, PI)
 	return abs(a - b) < 0.0001
 
 var target = Vector2.ZERO
@@ -49,12 +103,15 @@ var time_index = 0
 var rotate_first := false
 var rotate_degrees_per_second : float = 0
 var current_move: Move = null
+var rotate_towards: float = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if play_animation and not play_paused:
 		if rotate_first:
-			rotation = move_toward(rotation, current_move.rotation_angle(), delta * rotate_degrees_per_second * speed_control)
-			if compare_floats(rotation, current_move.rotation_angle()):
+			var test = rotate_toward(rotation, current_move.rotation_angle(), delta * rotate_degrees_per_second * speed_control)
+			rotation = test
+			var comp_fl = compare_floats(rotation, current_move.rotation_angle())
+			if comp_fl:
 				rotate_first = false
 		else:
 			position = position.move_toward(current_move.to, movement_speed * delta * speed_control)
@@ -70,9 +127,13 @@ func _process(delta: float) -> void:
 				rotate_first = current_move.time_step > 1.05
 				if compare_floats(current_move.rotation_angle(), PI):
 					rotate_degrees_per_second = PI / TURN_180_TIME
+					
 				elif compare_floats(current_move.rotation_angle(), PI/2):
-					rotate_degrees_per_second = PI / TURN_90_TIME
-		
+					rotate_degrees_per_second = (PI) / TURN_90_TIME
+				
+
+func _physics_process(delta: float) -> void:
+	pass
 
 func parse_text(move_filename: String) -> void:
 	var file = FileAccess.open(move_filename, FileAccess.READ)
@@ -95,8 +156,8 @@ func parse_text(move_filename: String) -> void:
 		
 		var temp_split = line.split(',')
 		var time_index = int(temp_split[0])
-		var x = temp_split[1]
-		var y = temp_split[2]
+		var x = temp_split[2]
+		var y = temp_split[1]
 		var phase = temp_split[3]
 
 		var next_position = 32*Vector2(int(x) + 0.5, int(y) + 0.5)
@@ -117,7 +178,6 @@ func parse_text(move_filename: String) -> void:
 	position = moves["phase1"][0].to
 	rotation = moves["phase1"][1].rotation_angle()
 
-enum DIR {LEFT, RIGHT, UP, DOWN}
 
 func get_direction(angle: float) -> DIR:
 	var epsilon = 0.0001
@@ -142,7 +202,8 @@ func play_phase(phase: String):
 	play_animation = true
 	current_phase = phase
 	move_index = 0
-	current_move = moves[current_phase][move_index]
+	if moves[current_phase]:
+		current_move = moves[current_phase][move_index]
 
 func pause_phase() -> void:
 	play_paused = true

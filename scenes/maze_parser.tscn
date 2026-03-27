@@ -3,9 +3,23 @@
 [ext_resource type="Script" uid="uid://1lrkypdg4t8s" path="res://scripts/parse_maze.gd" id="1_vnvbd"]
 [ext_resource type="PackedScene" uid="uid://q62bch717wfx" path="res://scenes/MazeViewer.tscn" id="2_rayc0"]
 
+[sub_resource type="Gradient" id="Gradient_rayc0"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_capat"]
+gradient = SubResource("Gradient_rayc0")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8837607, 0.15555556)
+
 [node name="MazeParser" type="Node2D" unique_id=192076669]
 z_index = 10
 script = ExtResource("1_vnvbd")
 
 [node name="MazeViewer" parent="." unique_id=115724016 instance=ExtResource("2_rayc0")]
 z_as_relative = false
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1377572224]
+color = Color(1, 0.50980395, 0, 1)
+energy = 1.9
+texture = SubResource("GradientTexture2D_capat")
