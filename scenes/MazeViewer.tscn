@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://q62bch717wfx"]
+
+[ext_resource type="Script" uid="uid://ccoiys75yapjg" path="res://scripts/maze_viewer.gd" id="1_024h4"]
+[ext_resource type="TileSet" uid="uid://4j3d0iuai7aj" path="res://sprite_sheet/maze_tileset.tres" id="2_024h4"]
+
+[node name="MazeViewer" type="Node2D" unique_id=115724016]
+texture_filter = 1
+script = ExtResource("1_024h4")
+
+[node name="BaseLayer" type="TileMapLayer" parent="." unique_id=1504878890]
+tile_set = ExtResource("2_024h4")
+
+[node name="WestWallLayer" type="TileMapLayer" parent="." unique_id=768877358]
+tile_set = ExtResource("2_024h4")
+
+[node name="EastWallLayer" type="TileMapLayer" parent="." unique_id=1412309829]
+tile_set = ExtResource("2_024h4")
+
+[node name="NorthWallLayer" type="TileMapLayer" parent="." unique_id=621128961]
+tile_set = ExtResource("2_024h4")
+
+[node name="SouthWallLayer" type="TileMapLayer" parent="." unique_id=1756199465]
+tile_set = ExtResource("2_024h4")
+
+[node name="BottomLeftLayer" type="TileMapLayer" parent="." unique_id=2123835955]
+tile_set = ExtResource("2_024h4")
+
+[node name="BottomRightLayer" type="TileMapLayer" parent="." unique_id=1030722528]
+tile_set = ExtResource("2_024h4")
+
+[node name="TopRightLayer" type="TileMapLayer" parent="." unique_id=1676299866]
+tile_set = ExtResource("2_024h4")
+
+[node name="TopLeftLayer" type="TileMapLayer" parent="." unique_id=927073505]
+tile_set = ExtResource("2_024h4")

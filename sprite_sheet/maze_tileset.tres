@@ -1,0 +1,56 @@
+[gd_resource type="TileSet" format=3 uid="uid://4j3d0iuai7aj"]
+
+[ext_resource type="Texture2D" uid="uid://docormvateuwr" path="res://sprite_sheet/icons/maze_tileset-Sheet.png" id="1_rt341"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rt341"]
+polygon = PackedVector2Array(8.078495, -14.978153, 12.724495, -14.70078, 14.527422, -13.4526005, 14.735451, -10.886899, 14.735451, -7.6971073, 8.147838, -7.6971073)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gpwkx"]
+polygon = PackedVector2Array(8.078495, -14.978153, 12.724495, -14.70078, 14.527422, -13.4526005, 14.735451, -10.886899, 14.735451, -7.6971073, 8.147838, -7.6971073)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xejjh"]
+polygon = PackedVector2Array(-11.241171, 16, -10.701595, -16, -16, -16, -16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7tv8a"]
+polygon = PackedVector2Array(-16, 10.971384, -16, 16, 16, 16, 16, 10.971384)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dpc4h"]
+polygon = PackedVector2Array(16, -16, 11.061312, -16, 10.701593, 16, 16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ngng0"]
+polygon = PackedVector2Array(-16, 9.607701, -13.360203, 9.478304, -13.360203, 10.545827, -11.4839525, 10.513477, -11.580999, 12.227983, -10.4164295, 12.195635, -10.254684, 13.263157, -9.575352, 13.327855, -9.737097, 14.427727, -9.284209, 14.880615, -9.28421, 16, -16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_6g3oq"]
+polygon = PackedVector2Array(16, -11.3310995, 16, -16, -16, -16, -16, -11.3311)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gpwkx"]
+resource_name = "maze"
+texture = ExtResource("1_rt341")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+6:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_7tv8a")
+7:0/0 = 0
+7:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_dpc4h")
+8:0/0 = 0
+8:0/0/z_index = 1
+8:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_ngng0")
+9:0/0 = 0
+9:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_6g3oq")
+10:0/0 = 0
+10:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_rt341")
+11:0/0 = 0
+11:0/0/z_index = 1
+11:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_gpwkx")
+12:0/0 = 0
+12:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_xejjh")
+
+[resource]
+tile_size = Vector2i(32, 32)
+occlusion_layer_0/light_mask = 1
+sources/0 = SubResource("TileSetAtlasSource_gpwkx")

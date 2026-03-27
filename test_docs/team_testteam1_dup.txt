@@ -1,0 +1,61 @@
+5,10
+1,0,0,phase1
+2,0,1,phase1
+5,1,1,phase1
+8,1,0,phase1
+11,2,0,phase1
+12,3,0,phase1
+15,3,1,phase1
+18,2,1,phase1
+21,2,2,phase1
+22,2,2,return
+25,2,3,return
+28,3,3,return
+31,3,2,return
+34,4,2,return
+37,4,3,return
+41,4,2,return
+42,4,1,return
+43,4,0,return
+46,4,1,return
+47,4,2,return
+50,3,2,return
+53,3,3,return
+54,3,4,return
+57,4,4,return
+61,3,4,return
+64,3,3,return
+67,2,3,return
+70,2,2,return
+71,2,1,return
+74,3,1,return
+
+
+				if next_direction == DIR.LEFT:
+					if previous_direction == DIR.UP:
+						current_rotation -= PI/2
+					elif previous_direction == DIR.RIGHT:
+						current_rotation -= PI
+					elif previous_direction == DIR.DOWN:
+						current_rotation += PI/2
+				elif next_direction == DIR.RIGHT:
+					if previous_direction == DIR.UP:
+						current_rotation += PI/2
+					elif previous_direction == DIR.LEFT:
+						current_rotation -= PI
+					elif previous_direction == DIR.DOWN:
+						current_rotation -= PI/2
+				elif next_direction == DIR.UP:
+					if previous_direction == DIR.RIGHT:
+						current_rotation += PI/2
+					elif previous_direction == DIR.LEFT:
+						current_rotation -= PI/2
+					elif previous_direction == DIR.DOWN:
+						current_rotation -= PI
+				elif next_direction == DIR.DOWN:
+					if previous_direction == DIR.RIGHT:
+						current_rotation += PI/2
+					elif previous_direction == DIR.LEFT:
+						current_rotation -= PI/2
+					elif previous_direction == DIR.UP:
+						current_rotation -= PI

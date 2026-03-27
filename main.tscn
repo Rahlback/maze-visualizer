@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bfs8d0ruh4kwc"]
+
+[ext_resource type="Script" uid="uid://dpbjuv48d5k5t" path="res://scripts/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b3ml12d8y7666" path="res://point_light_2d.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://d0gp5apdo1rja" path="res://scripts/moveable_camera.gd" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://ck7isv4o4biag" path="res://scenes/menus.tscn" id="3_h2yge"]
+
+[sub_resource type="Gradient" id="Gradient_ig7tw"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0xm2m"]
+gradient = SubResource("Gradient_ig7tw")
+fill = 1
+fill_from = Vector2(0.53846157, 0.44871795)
+fill_to = Vector2(0.82051283, 0.17521368)
+
+[node name="Node2D" type="Node2D" unique_id=1892196299]
+script = ExtResource("1_ig7tw")
+player_colors = PackedColorArray(0.8745098, 0, 0, 1, 0.3330178, 0.5375332, 1, 1, 0, 0.7294118, 0, 1, 0.8666667, 0.85490197, 0, 1, 1, 0, 1, 1, 0.45882353, 1, 1, 1, 0.27058825, 0.35686275, 0.7607843, 1, 0.36862746, 0.56078434, 0.47843137, 1)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=170809616]
+texture_filter = 1
+position = Vector2(679, 376)
+zoom = Vector2(1.415, 1.415)
+script = ExtResource("3_1bvp3")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1281644997]
+color = Color(0.27752784, 0.2775277, 0.27752766, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1783460058]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=64879195]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=187089522]
+position = Vector2(267, 66)
+energy = 2.22
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_0xm2m")
+script = ExtResource("2_0xm2m")
+
+[node name="MapHolder" type="Node2D" parent="." unique_id=1339361168]
+position = Vector2(0, 3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=132043960]
+
+[node name="CanvasLayer2" parent="." unique_id=911872964 instance=ExtResource("3_h2yge")]
+
+[node name="Timer" type="Timer" parent="." unique_id=203863820]
+autostart = true
+
+[node name="Teams" type="CanvasLayer" parent="." unique_id=49334234]
+
+[node name="TeamsBox" type="VBoxContainer" parent="Teams" unique_id=1267392770]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Teams" unique_id=1668437255]
+offset_left = 1555.0
+offset_top = 109.0
+offset_right = 1595.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 48
+
+[connection signal="file_dialog_dir_selected" from="CanvasLayer2" to="." method="_on_canvas_layer_2_file_dialog_dir_selected"]
+[connection signal="pause_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_pause_button_pressed"]
+[connection signal="play_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_play_button_pressed"]
+[connection signal="playback_speed_changed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_playback_speed_changed"]

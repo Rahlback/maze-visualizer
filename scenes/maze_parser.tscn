@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cej1anuir2xdj"]
+
+[ext_resource type="Script" uid="uid://1lrkypdg4t8s" path="res://scripts/parse_maze.gd" id="1_vnvbd"]
+[ext_resource type="PackedScene" uid="uid://q62bch717wfx" path="res://scenes/MazeViewer.tscn" id="2_rayc0"]
+
+[node name="MazeParser" type="Node2D" unique_id=192076669]
+z_index = 10
+script = ExtResource("1_vnvbd")
+
+[node name="MazeViewer" parent="." unique_id=115724016 instance=ExtResource("2_rayc0")]
+z_as_relative = false

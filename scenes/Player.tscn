@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dy82vcicyhrsd"]
+
+[ext_resource type="Script" uid="uid://cnejqnhre2e00" path="res://scripts/player/playerv3.gd" id="1_3li8b"]
+[ext_resource type="Shader" uid="uid://ceus2k3vvte2o" path="res://scenes/modify_color.gdshader" id="2_3li8b"]
+[ext_resource type="Texture2D" uid="uid://lje3rgy6j0hy" path="res://sprite_sheet/icons/rover.png" id="2_v6fml"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3li8b"]
+resource_local_to_scene = true
+
+[sub_resource type="Gradient" id="Gradient_5q5h1"]
+offsets = PackedFloat32Array(0, 0.85240966, 1)
+colors = PackedColorArray(0.1663743, 0.1663743, 0.16637424, 1, 0.8885542, 0.8885542, 0.8885542, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p0vlq"]
+gradient = SubResource("Gradient_5q5h1")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5101626, 0.51829267)
+fill_to = Vector2(0.86382115, 0.85162604)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdl7e"]
+shader = ExtResource("2_3li8b")
+shader_parameter/board_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_mdl7e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdl7e"]
+_data = {
+&"RESET": SubResource("Animation_mdl7e")
+}
+
+[node name="Player" type="Node2D" unique_id=1162692345 groups=["players"]]
+material = SubResource("CanvasItemMaterial_3li8b")
+script = ExtResource("1_3li8b")
+speed_control = 2.0
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=753602169]
+energy = 2.03
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_p0vlq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2118454758]
+texture_filter = 1
+material = SubResource("ShaderMaterial_mdl7e")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_v6fml")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1928882816]
+libraries/ = SubResource("AnimationLibrary_mdl7e")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=83233591]
+position = Vector2(0, 2)
+zoom = Vector2(3, 3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=900929956]
+visible = false
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=664078278]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Timer" type="Timer" parent="." unique_id=493717840]
+autostart = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

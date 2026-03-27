@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b4tgg06vigtud"]
+
+[ext_resource type="Script" uid="uid://pik31ol8f5y7" path="res://scripts/teamname_color.gd" id="1_l1spp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1spp"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1983653949]
+offset_right = 76.0
+offset_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_l1spp")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1653969932]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TeamnameColor" type="HBoxContainer" parent="MarginContainer" unique_id=1851087227]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/TeamnameColor" unique_id=1821352139]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/TeamnameColor" unique_id=1230948691]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_l1spp")
+
+[node name="NameLabel" type="RichTextLabel" parent="MarginContainer/TeamnameColor" unique_id=296478115]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 48
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

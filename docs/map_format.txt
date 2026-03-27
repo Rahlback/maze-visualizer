@@ -1,0 +1,35 @@
+// Map data
+abcd
+ef01
+2345
+6789
+
+-- File team_team1name_1.txt
+score1,score2
+time,coord,phase1
+time2,coord2,phase1
+time2,coord2,phase1
+time2,coord2,phase1
+time2,coord2,phase1
+time2,coord2,phase1
+time2,coord2,phase1
+time2,coord2,return
+time2,coord2,return
+time2,coord2,return
+time2,coord2,return
+time2,coord2,return
+time2,coord2,return
+time2,coord2,phase2
+time2,coord2,phase2
+time2,coord2,phase2
+time2,coord2,phase2
+time2,coord2,phase2
+time2,coord2,phase2
+time2,coord2,phase2
+
+-- Folder maze 1
+ -- map.txt
+ -- team_team1name_1.txt
+ -- team_team1name_2.txt
+ -- team_team1name_3.txt
+ -- team_team2name_1.txt
