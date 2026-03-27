@@ -8,6 +8,7 @@ texture_filter = 1
 script = ExtResource("1_024h4")
 
 [node name="BaseLayer" type="TileMapLayer" parent="." unique_id=1504878890]
+self_modulate = Color(0.6550534, 0.6550533, 0.65505326, 1)
 tile_set = ExtResource("2_024h4")
 
 [node name="WestWallLayer" type="TileMapLayer" parent="." unique_id=768877358]

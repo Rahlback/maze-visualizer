@@ -25,7 +25,7 @@ zoom = Vector2(1.415, 1.415)
 script = ExtResource("3_1bvp3")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1281644997]
-color = Color(0.27752784, 0.2775277, 0.27752766, 1)
+color = Color(0.55455405, 0.554554, 0.5545539, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1783460058]
 layer = -1
