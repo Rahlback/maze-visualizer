@@ -3,6 +3,13 @@ This repo contains the program to visualize the mazes from [this repository](htt
 
 It was made using Godot 4.6
 
+# Running
+There are two ways to run the program
+- Loading the project into [Godot](https://godotengine.org/)
+- Unzipping the zip file in the build folder and running the executable
+	- The pck file needs to be next to the exe file when running
+
+
 # Controls
 Pressing the ESC key - Show / hide controls
 
