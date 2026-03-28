@@ -44,11 +44,8 @@ func check_if_files_updated():
 	var files = DirAccess.get_files_at(monitor_dir)
 	
 	for file in files:
-		if not file in files_latest_modified:
-			pass # Need reload
 		var modified_time = FileAccess.get_modified_time(monitor_dir + "/" + file)
-		
-		if files_latest_modified[file] != modified_time:
+		if not file in files_latest_modified or files_latest_modified[file] != modified_time:
 			await _on_file_dialog_dir_selected(monitor_dir)
 			await get_tree().physics_frame
 			_on_play_button_pressed()
