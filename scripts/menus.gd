@@ -2,11 +2,15 @@ extends CanvasLayer
 
 @onready var file_dialog: FileDialog = $FileDialog
 @onready var playback_speed_label: RichTextLabel = $Menus/VBoxContainer/PlaybackSpeedLabel
+@onready var play_button: Button = $Menus/VBoxContainer/HBoxContainer/PlayButton
+@onready var play_debounce: Timer = $PlayDebounce
 
 signal file_dialog_dir_selected(dir: String)
 signal play_button_pressed
 signal pause_button_pressed
 signal playback_speed_changed(speed: float)
+
+var prevent_play_pressed := true
 
 var speed : float = 1:
 	set(val):
@@ -35,7 +39,10 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 
 
 func _on_play_button_pressed() -> void:
+	#if not play_button.disabled:
 	play_button_pressed.emit()
+	#play_button.disabled = true
+	#play_debounce.start()
 
 func _on_speed_down_button_pressed() -> void:
 	speed /= speed_step
@@ -52,3 +59,6 @@ func _on_reverse_button_pressed() -> void:
 func _on_forward_button_pressed() -> void:
 	speed = absf(speed)
 	
+
+func _on_play_debounce_timeout() -> void:
+	play_button.disabled = false

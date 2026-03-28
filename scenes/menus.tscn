@@ -83,6 +83,10 @@ dialog_hide_on_ok = true
 file_mode = 2
 access = 2
 
+[node name="PlayDebounce" type="Timer" parent="." unique_id=685856811]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/SpeedDownButton" to="." method="_on_speed_down_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/ReverseButton" to="." method="_on_reverse_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
@@ -91,3 +95,4 @@ access = 2
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/SpeedUpButton" to="." method="_on_speed_up_button_pressed"]
 [connection signal="button_up" from="Menus/VBoxContainer/LoadMaps" to="." method="_on_load_maps_button_up"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
+[connection signal="timeout" from="PlayDebounce" to="." method="_on_play_debounce_timeout"]

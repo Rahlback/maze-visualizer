@@ -211,6 +211,11 @@ func pause_phase() -> void:
 
 func reset_phase(phase: String) -> void:
 	print("Reset")
+	if not moves[phase]:
+		set_process(false)
+		return
+	else:
+		set_process(true)
 	position = moves[phase][0].to
 	rotation = moves[phase][1].rotation_angle()
 	current_phase = phase

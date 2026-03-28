@@ -10,7 +10,7 @@ var speed_control: float = 1
 var teams_finished_with_phase := 0
 
 var phases = ["phase1", "return", "phase2"]
-var current_phase = 0
+var current_phase = -2
 
 var maze_parser: MazeParser
 const MAZE_PARSER = preload("uid://cej1anuir2xdj")
@@ -52,7 +52,7 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 	print("Received dir string ", dir)
 	var maze_folder := DirAccess.open(dir)
 	if maze_folder.file_exists("map.txt"):
-		current_phase = 0
+		current_phase = -2
 		current_color = 0
 		for child in map_holder.get_children():
 			child.queue_free()
@@ -88,7 +88,7 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 
 func play_next_phase() -> void:
 	if current_phase == len(phases):
-		current_phase = -1
+		#current_phase = -1
 		print_debug("Abort play. Already played")
 		return
 	
@@ -107,16 +107,26 @@ func team_finished_phase(_anim_name: String) -> void:
 		if auto_play_phases:
 			play_next_phase()
 
+func reset_players(phase) -> void:
+	for child in map_holder.get_children():
+		if child is PlayerAnimatorV3:
+			child.reset_phase(phases[phase])
+
+
 func _on_canvas_layer_2_play_button_pressed() -> void:
 	time_label.show()
 	current_time = 0
+	
+	if current_phase == -2:
+		current_phase = 0
+	else:
+		current_phase = wrapi(current_phase+1, 0, 3)
+
+	reset_players(current_phase)
+
 	for child in map_holder.get_children():
 		if child is PlayerAnimatorV3:
-			if current_phase == -1 or current_phase >= len(phases):
-				label.text = "reset"
-				child.reset_phase("phase1")
-			else:
-				child.play_phase(phases[current_phase])
+			child.play_phase(phases[current_phase])
 	if current_phase == -1 or current_phase >= len(phases):
 		current_phase = 0
 		label.text = "reset"
