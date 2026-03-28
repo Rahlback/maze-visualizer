@@ -52,6 +52,8 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 	print("Received dir string ", dir)
 	var maze_folder := DirAccess.open(dir)
 	if maze_folder.file_exists("map.txt"):
+		teamnames_and_color = {}
+		team_names_score = {}
 		current_phase = -2
 		current_color = 0
 		for child in map_holder.get_children():
