@@ -97,3 +97,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pause_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_pause_button_pressed"]
 [connection signal="play_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_play_button_pressed"]
 [connection signal="playback_speed_changed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_playback_speed_changed"]
+[connection signal="reload_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_reload_button_pressed"]

@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bkd5abx1fp7be" path="res://scripts/menus.gd" id="1_dve7u"]
 [ext_resource type="Texture2D" uid="uid://dhwvu4xh7lqve" path="res://sprite_sheet/icons/rewind.png" id="2_1nefl"]
+[ext_resource type="Theme" uid="uid://cmj011g2sf3ls" path="res://themes/main_theme.tres" id="2_chs3c"]
 [ext_resource type="Texture2D" uid="uid://cnxqa2medwoa1" path="res://sprite_sheet/icons/previous.png" id="3_8vid2"]
 [ext_resource type="Texture2D" uid="uid://bdlqprnqjqpdc" path="res://sprite_sheet/icons/forward.png" id="3_hbm71"]
 [ext_resource type="Texture2D" uid="uid://cltl3m3kym6wu" path="res://sprite_sheet/icons/pause.png" id="4_8vid2"]
 [ext_resource type="Texture2D" uid="uid://gnpq540hox6q" path="res://sprite_sheet/icons/fastForward.png" id="5_he6ts"]
 [ext_resource type="Texture2D" uid="uid://dlurppj206auy" path="res://sprite_sheet/icons/next.png" id="6_he6ts"]
+[ext_resource type="Texture2D" uid="uid://c71ob8pji6e01" path="res://sprite_sheet/icons/return.png" id="7_he6ts"]
 
 [node name="CanvasLayer2" type="CanvasLayer" unique_id=911872964]
 script = ExtResource("1_dve7u")
@@ -19,18 +21,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("2_chs3c")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menus" unique_id=1502456012]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.002
 anchor_top = 0.99600005
-anchor_right = 0.002
+anchor_right = 0.0020333333
 anchor_bottom = 0.99600005
-offset_left = 0.096000195
-offset_top = -164.40802
-offset_right = 244.096
-offset_bottom = -54.40802
+offset_left = 0.15999985
+offset_top = -208.68011
+offset_right = 306.096
+offset_bottom = -68.680115
 grow_vertical = 0
 scale = Vector2(1.4927195, 1.4927195)
 metadata/_edit_use_anchors_ = true
@@ -46,6 +49,7 @@ layout_mode = 2
 
 [node name="SpeedDownButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=1995286464]
 layout_mode = 2
+tooltip_text = "Slow down speed"
 icon = ExtResource("2_1nefl")
 
 [node name="ReverseButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=1416663097]
@@ -55,10 +59,12 @@ icon = ExtResource("3_8vid2")
 
 [node name="PlayButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=1530744799]
 layout_mode = 2
+tooltip_text = "Play next phase"
 icon = ExtResource("3_hbm71")
 
 [node name="PauseButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=966070869]
 layout_mode = 2
+tooltip_text = "Pause animation"
 icon = ExtResource("4_8vid2")
 
 [node name="ForwardButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=219256620]
@@ -66,13 +72,76 @@ visible = false
 layout_mode = 2
 icon = ExtResource("6_he6ts")
 
+[node name="ReloadButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=407809218]
+layout_mode = 2
+tooltip_text = "Restart from phase 1"
+icon = ExtResource("7_he6ts")
+
 [node name="SpeedUpButton" type="Button" parent="Menus/VBoxContainer/HBoxContainer" unique_id=1396334506]
 layout_mode = 2
+tooltip_text = "Speed up time"
 icon = ExtResource("5_he6ts")
 
-[node name="LoadMaps" type="Button" parent="Menus/VBoxContainer" unique_id=961274724]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Menus/VBoxContainer" unique_id=1190722241]
 layout_mode = 2
-text = "Load maps"
+
+[node name="LoadMaps" type="Button" parent="Menus/VBoxContainer/HBoxContainer2" unique_id=961274724]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Load a map"
+text = "Load map"
+
+[node name="AutoReloadCheckbox" type="CheckBox" parent="Menus/VBoxContainer/HBoxContainer2" unique_id=1461489081]
+layout_mode = 2
+tooltip_text = "If toggled on, the program will monitor 
+the directory that is loaded (or loaded in the future) for any changes. 
+
+If a change is detected the map will be reloaded automatically
+
+The program is checking if a file is added or modified, but not for removed files. 
+
+Changes listened for are: player data, map data"
+theme_override_font_sizes/font_size = 16
+text = "Auto reload"
+
+[node name="GameMenuButton" type="Button" parent="Menus/VBoxContainer" unique_id=1561119624]
+layout_mode = 2
+text = "Game menu"
+
+[node name="GameMenuPanel" type="PanelContainer" parent="Menus" unique_id=1310623645]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -30.0
+offset_right = 100.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menus/GameMenuPanel" unique_id=47602493]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Menus/GameMenuPanel/VBoxContainer" unique_id=1994572765]
+layout_mode = 2
+button_pressed = true
+text = "Fullscreen"
+expand_icon = true
+
+[node name="CloseMenuButton" type="Button" parent="Menus/GameMenuPanel/VBoxContainer" unique_id=1533492583]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Close menu"
+
+[node name="ExitButton" type="Button" parent="Menus/GameMenuPanel/VBoxContainer" unique_id=1154509103]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Exit"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1176836471]
 oversampling_override = 1.0
@@ -87,12 +156,21 @@ access = 2
 wait_time = 0.2
 one_shot = true
 
+[node name="AutoReloadTimer" type="Timer" parent="." unique_id=125614505]
+
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/SpeedDownButton" to="." method="_on_speed_down_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/ReverseButton" to="." method="_on_reverse_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/ForwardButton" to="." method="_on_forward_button_pressed"]
+[connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/ReloadButton" to="." method="_on_reload_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/SpeedUpButton" to="." method="_on_speed_up_button_pressed"]
-[connection signal="button_up" from="Menus/VBoxContainer/LoadMaps" to="." method="_on_load_maps_button_up"]
+[connection signal="button_up" from="Menus/VBoxContainer/HBoxContainer2/LoadMaps" to="." method="_on_load_maps_button_up"]
+[connection signal="toggled" from="Menus/VBoxContainer/HBoxContainer2/AutoReloadCheckbox" to="." method="_on_auto_reload_checkbox_toggled"]
+[connection signal="pressed" from="Menus/VBoxContainer/GameMenuButton" to="." method="_on_game_menu_button_pressed"]
+[connection signal="toggled" from="Menus/GameMenuPanel/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="Menus/GameMenuPanel/VBoxContainer/CloseMenuButton" to="." method="_on_close_menu_button_pressed"]
+[connection signal="pressed" from="Menus/GameMenuPanel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
 [connection signal="timeout" from="PlayDebounce" to="." method="_on_play_debounce_timeout"]
+[connection signal="timeout" from="AutoReloadTimer" to="." method="_on_auto_reload_timer_timeout"]

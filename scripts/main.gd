@@ -154,3 +154,8 @@ func _on_canvas_layer_2_pause_button_pressed() -> void:
 	for child in map_holder.get_children():
 		if child is PlayerAnimatorV3:
 			child.pause_phase()
+
+
+func _on_canvas_layer_2_reload_button_pressed() -> void:
+	current_phase = -2
+	_on_canvas_layer_2_play_button_pressed()

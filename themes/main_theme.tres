@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://cmj011g2sf3ls"]
+
+[ext_resource type="FontFile" uid="uid://cxm1hnqcnwjys" path="res://fonts/Jersey10-Regular.ttf" id="1_rjgu6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjgu6"]
+content_margin_left = 14.0
+content_margin_right = 14.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[resource]
+default_font = ExtResource("1_rjgu6")
+CheckBox/font_sizes/font_size = 48
+TooltipLabel/font_sizes/font_size = 48
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_rjgu6")
