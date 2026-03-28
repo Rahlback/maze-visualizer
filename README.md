@@ -16,13 +16,16 @@ Pressing the ESC key - Show / hide controls
 
 Reverse button - Slow down animation
 
-Play button - Start animations
+Play button - Start animations / Skip to next phase if animations are already playing
 
-Pause button - Pause animations
+Pause button - Pause / unpause animations
 
 Forward button - Speed up animation
 
 Load maps - Select which map data to show and animate
+
+Having a speed multiplier higher than the framerate (Godot process update) will not actually speed anything up.
+The players will just take 1 frame to reach their next destination, and then wait for the next frame.
 
 # Expected format of map data
 The expected folder structure is as follows:
