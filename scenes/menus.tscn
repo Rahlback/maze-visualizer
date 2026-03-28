@@ -194,6 +194,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="AutoReloadTimer" type="Timer" parent="." unique_id=125614505]
+wait_time = 2.0
 
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/SpeedDownButton" to="." method="_on_speed_down_button_pressed"]
 [connection signal="pressed" from="Menus/VBoxContainer/HBoxContainer/ReverseButton" to="." method="_on_reverse_button_pressed"]
