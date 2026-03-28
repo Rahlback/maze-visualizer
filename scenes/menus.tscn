@@ -10,6 +10,18 @@
 [ext_resource type="Texture2D" uid="uid://dlurppj206auy" path="res://sprite_sheet/icons/next.png" id="6_he6ts"]
 [ext_resource type="Texture2D" uid="uid://c71ob8pji6e01" path="res://sprite_sheet/icons/return.png" id="7_he6ts"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chs3c"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [node name="CanvasLayer2" type="CanvasLayer" unique_id=911872964]
 script = ExtResource("1_dve7u")
 
@@ -142,6 +154,31 @@ text = "Close menu"
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Exit"
+
+[node name="PanelContainer" type="PanelContainer" parent="Menus" unique_id=1283925381]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.14888889
+anchor_right = 0.5
+anchor_bottom = 0.14888889
+offset_left = -183.5
+offset_right = 183.5
+offset_bottom = 112.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_chs3c")
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menus/PanelContainer" unique_id=539433794]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[pulse freq=1.0 color=green ease=-2.0]Files changed on disk!
+Reloading...[/pulse]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1176836471]
 oversampling_override = 1.0

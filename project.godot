@@ -29,6 +29,10 @@ window/vsync/vsync_mode=0
 movie_writer/ogv/audio_quality=-0.1
 movie_writer/movie_file="C:/Users/jjy322/Documents/godot/projects/maze-visualizer/movies/test_movie.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/line_counter/plugin.cfg")
+
 [global_group]
 
 players="All the player nodes"
