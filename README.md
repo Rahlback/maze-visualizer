@@ -8,6 +8,7 @@ There are two ways to run the program
 - Loading the project into [Godot](https://godotengine.org/)
 - Unzipping the zip file in the build folder and running the executable
 	- The pck file needs to be next to the exe file when running
+  - When getting the latest build, you only need to download the pck file and replace your current pck file with the new one
 
 
 # Controls
