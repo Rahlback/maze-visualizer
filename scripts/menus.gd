@@ -52,7 +52,9 @@ func check_if_files_updated():
 			await _on_file_dialog_dir_selected(monitor_dir)
 			await get_tree().physics_frame
 			_on_play_button_pressed()
-	
+			return
+
+
 	
 	
 # Called when the node enters the scene tree for the first time.
