@@ -143,7 +143,7 @@ func parse_text(move_filename: String) -> void:
 	var move_text = file.get_as_text()
 	
 	var lines = move_text.split("\n")
-	score = lines[0].split(',')
+	score = lines[0]
 	lines.remove_at(0)
 	
 	var current_pos := Vector2(-32, -32)
@@ -204,9 +204,12 @@ func play_phase(phase: String):
 	move_index = 0
 	if moves[current_phase]:
 		current_move = moves[current_phase][move_index]
+	else:
+		set_process(false)
+		player_animation_done.emit(current_phase)
 
 func pause_phase() -> void:
-	play_paused = true
+	play_paused = not play_paused
 	
 
 func reset_phase(phase: String) -> void:

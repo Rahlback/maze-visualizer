@@ -8,7 +8,7 @@ var current_time: float = 0
 var speed_control: float = 1
 
 var teams_finished_with_phase := 0
-
+var team_names_score = {}
 var phases = ["phase1", "return", "phase2"]
 var current_phase = -2
 
@@ -80,10 +80,12 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 				current_color += 1
 				new_player.parse_text(dir + "/" + filename)
 				new_player.player_animation_done.connect(team_finished_phase)
+				team_names_score[team_name] = new_player.score
 				
 		for key in teamnames_and_color.keys():
 			var new_team: TeamnameColorLabel = TEAMNAME_COLOR.instantiate()
 			new_team.set_name_and_color(key, teamnames_and_color[key])
+			new_team.set_score(team_names_score[key])
 			teams_box.add_child(new_team)
 
 func play_next_phase() -> void:
@@ -98,16 +100,23 @@ func play_next_phase() -> void:
 	
 	label.text = phases[current_phase]
 	current_time = 0
+
 func team_finished_phase(_anim_name: String) -> void:
 	teams_finished_with_phase += 1
 	print("Teams finished with phase: " + str(phases[current_phase]) + " = " + str(teams_finished_with_phase))
 	if teams_finished_with_phase == len(teamnames_and_color):
 		teams_finished_with_phase = 0
-		current_phase += 1
-		if auto_play_phases:
-			play_next_phase()
+		if current_phase == 2:
+			for child in teams_box.get_children():
+				child.show_score()
+			current_phase = -2
+		else:
+			current_phase += 1
+			if auto_play_phases:
+				play_next_phase()
 
 func reset_players(phase) -> void:
+	teams_finished_with_phase = 0
 	for child in map_holder.get_children():
 		if child is PlayerAnimatorV3:
 			child.reset_phase(phases[phase])
