@@ -13,6 +13,7 @@ const TURN_180_TIME = 3
 const MOVE_STRAIGHT_TIME = 1
 
 signal player_animation_done(anim_name: String)
+signal player_changed_string(player_string: String)
 
 var moves = {"phase1": [], "phase2": [], "return": []}
 var dir_tracker = {	DIR.DOWN: 
@@ -55,6 +56,7 @@ var current_phase = "phase1"
 var play_animation := false
 var movement_speed := 32
 var play_paused := false
+var current_player_string := ""
 
 class Move:
 	var from: Vector2 = Vector2(-32, -32)
@@ -62,6 +64,7 @@ class Move:
 	var time_step : int = 0
 	var time_index : int = 0
 	var elapsed_time : float = 0
+	var extra_string : String = ""
 
 	func rotation_angle() -> float:
 		return from.angle_to_point(to)
@@ -123,6 +126,11 @@ func _process(delta: float) -> void:
 				player_animation_done.emit(current_phase)
 			else:
 				current_move = moves[current_phase][move_index]
+				
+				if current_move.extra_string != current_player_string:
+					current_player_string = current_move.extra_string
+					player_changed_string.emit(current_player_string)
+
 				current_move.elapsed_time = 0
 				rotate_first = current_move.time_step > 1.05
 				if compare_floats(current_move.rotation_angle(), PI):
@@ -159,6 +167,8 @@ func parse_text(move_filename: String) -> void:
 		var x = temp_split[2]
 		var y = temp_split[1]
 		var phase = temp_split[3]
+		if len(temp_split) >= 5:
+			new_move.extra_string = temp_split[4]
 
 		var next_position = 32*Vector2(int(x) + 0.5, int(y) + 0.5)
 

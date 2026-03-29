@@ -86,6 +86,7 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 				new_player.parse_text(dir + "/" + filename)
 				new_player.player_animation_done.connect(team_finished_phase)
 				team_names_score[team_name] = new_player.score
+				new_player.player_changed_string.connect(_on_player_string_change.bind(team_name))
 				
 		for key in teamnames_and_color.keys():
 			var new_team: TeamnameColorLabel = TEAMNAME_COLOR.instantiate()
@@ -165,3 +166,8 @@ func _on_canvas_layer_2_reload_button_pressed() -> void:
 
 func _on_hovering_tile_change(coord: Vector2i) -> void:
 	coordinate_label.text = str(coord)
+
+func _on_player_string_change(player_string: String, team_name: String) -> void:
+	for child: TeamnameColorLabel in teams_box.get_children():
+		if child.team_name_string == team_name:
+			child.update_name_label(player_string)
