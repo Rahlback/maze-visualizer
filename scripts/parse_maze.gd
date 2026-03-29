@@ -4,6 +4,8 @@ class_name MazeParser
 @onready var maze_viewer: MazeView = $MazeViewer
 @onready var point_light_2d: PointLight2D = $PointLight2D
 
+signal hovering_tile(coord: Vector2i)
+
 const MAZE_DATA_PATH := "C:\\Users\\jjy322\\OneDrive - AFRY\\Documents\\code_challenge\\maze_data"
 var test_map := "res://test_docs/map1_test.txt"
 const test_map_2 = "res://test_docs/mazes/maze1/map.txt"
@@ -66,3 +68,7 @@ func _draw() -> void:
 
 
 pass
+
+
+func _on_maze_viewer_hovering_tile(coord: Vector2i) -> void:
+	hovering_tile.emit(coord)

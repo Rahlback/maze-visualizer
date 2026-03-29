@@ -24,6 +24,7 @@ const TEAMNAME_COLOR = preload("uid://b4tgg06vigtud")
 @onready var teams_box: VBoxContainer = $Teams/TeamsBox
 @onready var label: Label = $Teams/Label
 @onready var time_label: RichTextLabel = $Teams/TimeLabel
+@onready var coordinate_label: Label = $Teams/CoordinateLabel
 
 func _physics_process(delta: float) -> void:
 	current_time += delta * speed_control
@@ -64,6 +65,8 @@ func _on_canvas_layer_2_file_dialog_dir_selected(dir: String) -> void:
 
 		var new_maze_parser : MazeParser = MAZE_PARSER.instantiate()
 		map_holder.add_child(new_maze_parser)
+		new_maze_parser.hovering_tile.connect(_on_hovering_tile_change)
+		
 		new_maze_parser.parse_map_data(dir + "/map.txt")
 		
 		for filename in maze_folder.get_files():
@@ -159,3 +162,6 @@ func _on_canvas_layer_2_pause_button_pressed() -> void:
 func _on_canvas_layer_2_reload_button_pressed() -> void:
 	current_phase = -2
 	_on_canvas_layer_2_play_button_pressed()
+
+func _on_hovering_tile_change(coord: Vector2i) -> void:
+	coordinate_label.text = str(coord)

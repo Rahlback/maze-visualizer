@@ -11,6 +11,8 @@ class_name MazeView
 @onready var top_right_layer: TileMapLayer = $TopRightLayer
 @onready var top_left_layer: TileMapLayer = $TopLeftLayer
 
+signal hovering_tile(coord: Vector2i)
+
 const BASE_TILE = Vector2i(1, 0)
 const DOWN_TILE = Vector2i(6, 0)
 const LEFT_TILE = Vector2i(12, 0)
@@ -153,3 +155,7 @@ func setup_corners() -> void:
 		check_if_bottom_right_needed(coord)
 		check_if_top_right_needed(coord)
 		check_if_top_left_needed(coord)
+
+
+func _on_base_layer_hovering_tile(coord: Vector2i) -> void:
+	hovering_tile.emit(coord)

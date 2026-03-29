@@ -23,3 +23,5 @@ z_as_relative = false
 color = Color(1, 0.50980395, 0, 1)
 energy = 1.9
 texture = SubResource("GradientTexture2D_capat")
+
+[connection signal="hovering_tile" from="MazeViewer" to="." method="_on_maze_viewer_hovering_tile"]

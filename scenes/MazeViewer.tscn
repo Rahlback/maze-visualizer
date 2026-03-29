@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccoiys75yapjg" path="res://scripts/maze_viewer.gd" id="1_024h4"]
 [ext_resource type="TileSet" uid="uid://4j3d0iuai7aj" path="res://sprite_sheet/maze_tileset.tres" id="2_024h4"]
+[ext_resource type="Script" uid="uid://bhqsg3ve562e6" path="res://scripts/base_layer.gd" id="3_4oiuk"]
 
 [node name="MazeViewer" type="Node2D" unique_id=115724016]
 texture_filter = 1
@@ -10,6 +11,7 @@ script = ExtResource("1_024h4")
 [node name="BaseLayer" type="TileMapLayer" parent="." unique_id=1504878890]
 self_modulate = Color(0.6550534, 0.6550533, 0.65505326, 1)
 tile_set = ExtResource("2_024h4")
+script = ExtResource("3_4oiuk")
 
 [node name="WestWallLayer" type="TileMapLayer" parent="." unique_id=768877358]
 tile_set = ExtResource("2_024h4")
@@ -34,3 +36,5 @@ tile_set = ExtResource("2_024h4")
 
 [node name="TopLeftLayer" type="TileMapLayer" parent="." unique_id=927073505]
 tile_set = ExtResource("2_024h4")
+
+[connection signal="hovering_tile" from="BaseLayer" to="." method="_on_base_layer_hovering_tile"]
