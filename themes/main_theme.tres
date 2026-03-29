@@ -2,6 +2,58 @@
 
 [ext_resource type="FontFile" uid="uid://cxm1hnqcnwjys" path="res://fonts/Jersey10-Regular.ttf" id="1_rjgu6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gw6x"]
+bg_color = Color(0.31376565, 0.18106824, 0.5274561, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3218715, 0.18661374, 0.53997, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vu6l5"]
+bg_color = Color(0.41794175, 0.2593361, 0.68599766, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3218715, 0.18661374, 0.53997, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydht1"]
+bg_color = Color(0.61317915, 0.47713727, 0.891566, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3218715, 0.18661374, 0.53997, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g21io"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.1808348, 0.09409071, 0.31899735, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.51049393, 0.34450227, 0.8026404, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjgu6"]
 content_margin_left = 14.0
 content_margin_right = 14.0
@@ -18,6 +70,13 @@ corner_radius_bottom_left = 4
 
 [resource]
 default_font = ExtResource("1_rjgu6")
+Button/constants/align_to_largest_stylebox = 1
+Button/styles/hover = SubResource("StyleBoxFlat_8gw6x")
+Button/styles/normal = SubResource("StyleBoxFlat_vu6l5")
+Button/styles/pressed = SubResource("StyleBoxFlat_ydht1")
 CheckBox/font_sizes/font_size = 48
+MenuPanelContainer/base_type = &"PanelContainer"
+MenuPanelContainer/styles/panel = SubResource("StyleBoxFlat_g21io")
+PanelContainer/styles/panel = null
 TooltipLabel/font_sizes/font_size = 48
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_rjgu6")

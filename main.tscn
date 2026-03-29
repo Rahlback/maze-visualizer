@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b3ml12d8y7666" path="res://point_light_2d.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://d0gp5apdo1rja" path="res://scripts/moveable_camera.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ck7isv4o4biag" path="res://scenes/menus.tscn" id="3_h2yge"]
+[ext_resource type="Theme" uid="uid://cmj011g2sf3ls" path="res://themes/main_theme.tres" id="5_lquwl"]
 
 [sub_resource type="Gradient" id="Gradient_ig7tw"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -61,6 +62,7 @@ autostart = true
 [node name="TeamsBox" type="VBoxContainer" parent="Teams" unique_id=1267392770]
 offset_right = 40.0
 offset_bottom = 40.0
+theme = ExtResource("5_lquwl")
 
 [node name="Label" type="Label" parent="Teams" unique_id=1668437255]
 anchors_preset = 1
@@ -71,6 +73,7 @@ offset_top = 7.0
 offset_right = -7.0
 offset_bottom = 74.0
 grow_horizontal = 0
+theme = ExtResource("5_lquwl")
 theme_override_font_sizes/font_size = 48
 metadata/_edit_use_anchors_ = true
 
@@ -86,6 +89,7 @@ offset_top = 0.08000183
 offset_right = -23.720093
 offset_bottom = 40.08
 size_flags_horizontal = 3
+theme = ExtResource("5_lquwl")
 theme_override_font_sizes/normal_font_size = 48
 fit_content = true
 scroll_active = false
@@ -104,6 +108,7 @@ offset_right = -41.0
 offset_bottom = -31.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("5_lquwl")
 text = "0, 0"
 
 [connection signal="file_dialog_dir_selected" from="CanvasLayer2" to="." method="_on_canvas_layer_2_file_dialog_dir_selected"]

@@ -26,6 +26,7 @@ corner_radius_bottom_left = 12
 script = ExtResource("1_dve7u")
 
 [node name="Menus" type="Control" parent="." unique_id=1963188342]
+texture_filter = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,19 +39,17 @@ theme = ExtResource("2_chs3c")
 [node name="VBoxContainer" type="VBoxContainer" parent="Menus" unique_id=1502456012]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.002
-anchor_top = 0.99600005
-anchor_right = 0.0020333333
-anchor_bottom = 0.99600005
-offset_left = 0.15999985
-offset_top = -208.68011
-offset_right = 306.096
-offset_bottom = -68.680115
+anchor_top = 0.99999994
+anchor_bottom = 0.99999994
+offset_left = 7.0
+offset_top = -219.99994
+offset_right = 313.0
+offset_bottom = -79.99994
 grow_vertical = 0
-scale = Vector2(1.4927195, 1.4927195)
-metadata/_edit_use_anchors_ = true
+scale = Vector2(1.5, 1.5)
 
 [node name="PlaybackSpeedLabel" type="RichTextLabel" parent="Menus/VBoxContainer" unique_id=856617259]
+texture_filter = 2
 layout_mode = 2
 text = "Playback speed: 1x"
 fit_content = true
@@ -121,7 +120,6 @@ layout_mode = 2
 text = "Game menu"
 
 [node name="GameMenuPanel" type="PanelContainer" parent="Menus" unique_id=1310623645]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,6 +132,8 @@ offset_right = 100.0
 offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_chs3c")
+theme_type_variation = &"MenuPanelContainer"
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menus/GameMenuPanel" unique_id=47602493]
