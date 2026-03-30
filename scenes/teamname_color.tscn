@@ -28,6 +28,7 @@ custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/TeamnameColor" unique_id=1230948691]
+visible = false
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_l1spp")
 
@@ -35,6 +36,8 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_l1spp")
 layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 48
+text = " "
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+horizontal_alignment = 2

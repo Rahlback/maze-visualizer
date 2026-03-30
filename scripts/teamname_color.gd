@@ -12,7 +12,7 @@ func set_name_and_color(team_name: String, team_color: Color) -> void:
 	if not is_node_ready():
 		await ready
 	name_label.push_color(team_color)
-	name_label.add_text(team_name)
+	name_label.add_text(" " + team_name)
 	color_rect.color = team_color
 	team_name_string = team_name
 	_team_color = team_color
@@ -28,4 +28,4 @@ func show_score() -> void:
 func update_name_label(additional_string: String) -> void:
 	name_label.text = ""
 	name_label.push_color(_team_color)
-	name_label.add_text("%s: %s" % [team_name_string, additional_string])
+	name_label.add_text(" %s: %s" % [team_name_string, additional_string])
