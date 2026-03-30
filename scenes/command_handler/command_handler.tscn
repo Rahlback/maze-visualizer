@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://binvpe6iejrdb"]
+
+[ext_resource type="Script" uid="uid://bmwd66f2echgw" path="res://scripts/command_handler/command_handler.gd" id="1_b6eby"]
+
+[node name="CommandHandler" type="Control" unique_id=1278035119]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_b6eby")
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=196081637]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 125.0
+offset_right = 1138.0
+offset_bottom = 617.0
+focus_mode = 2
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1949943242]
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 56.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1088080488]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=670479698]
+layout_mode = 2
+text = "Current dir:"
+
+[node name="CurrentDirLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=174926052]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1385488064]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Send command"
+
+[node name="CheckButton" type="CheckBox" parent="VBoxContainer" unique_id=1391158052]
+layout_mode = 2
+text = "Use WSL"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1819886069]
+disable_3d = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(1200, 720)
+visible = true
+file_mode = 2
+access = 2
+show_hidden_files = true
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
