@@ -57,6 +57,11 @@ func check_if_files_updated():
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	auto_reload = auto_reload_checkbox.button_pressed
+	if SaveHandler.maze_map_data_dir != "":
+		file_dialog.set_current_dir(SaveHandler.maze_map_data_dir)
+		print("Loading map data from: ", SaveHandler.maze_map_data_dir)
+	else:
+		print("Save handler does not have anything: ", SaveHandler.maze_map_data_dir)
 	
 
 func _on_load_maps_button_up() -> void:
@@ -69,6 +74,7 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 	monitor_dir = dir
 	await get_tree().physics_frame
 	playback_speed_changed.emit(speed)
+	SaveHandler.save_maze_map_data_dir(dir)
 	
 
 
