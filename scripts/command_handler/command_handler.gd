@@ -5,15 +5,27 @@ extends Control
 @onready var current_dir_label: Label = $VBoxContainer/HBoxContainer/CurrentDirLabel
 
 var pipe_process
+var wsl_localhost = "//wsl.localhost/"
+var wsl_default_distro := ""
+var use_wsl := false
+var wsl_local_path := ""
 
 var micro_mouse_dir := "":
 	set(val):
 		current_dir_label.text = val
 		micro_mouse_dir = val
-
-var wsl_localhost = "//wsl.localhost/"
-var wsl_default_distro := ""
-var use_wsl := false
+		
+		var find_actual_path = val.replace("//", "/")
+		var individual_directories = find_actual_path.split("/")
+		if len(individual_directories) == 1:
+			return
+		if "wsl" in individual_directories[1]:
+			individual_directories.remove_at(1)
+			individual_directories.remove_at(1)
+			wsl_local_path = "/".join(individual_directories)
+			use_wsl = true
+			
+		
 
 func get_wsl_default_distro() -> String:
 	if pipe_process:
@@ -59,17 +71,12 @@ func _on_button_pressed() -> void:
 		var maze_py_file_location = "%s/maze.py" % micro_mouse_dir
 		print(use_wsl)
 		if use_wsl:
-			maze_py_file_location = maze_py_file_location.replace(wsl_localhost + wsl_default_distro, "")
+			maze_py_file_location = "%s/maze.py" % wsl_local_path
+			print_debug(OS.execute("CMD.exe", ["/C", "wsl", "python3", maze_py_file_location, "--generate"], output, true))
 		# TODO setup actual commands
-		print_debug(OS.execute("CMD.exe", ["/C", "wsl", "python3", maze_py_file_location], output, true))
 		label.text = str(output)
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
 	micro_mouse_dir = dir
+	print(micro_mouse_dir)
 	SaveHandler.save_maze_generator_dir(micro_mouse_dir)
-
-
-func _on_check_button_toggled(toggled_on: bool) -> void:
-	if toggled_on and wsl_default_distro == "":
-		get_wsl_default_distro()
-	use_wsl = toggled_on
