@@ -27,15 +27,39 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=670479698]
 layout_mode = 2
-text = "Current dir:"
+text = "Current micro mouse dir:"
 
 [node name="CurrentDirLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=174926052]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=1385488064]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=807618273]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer" unique_id=2000628513]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=962902956]
+layout_mode = 2
+text = "Width"
+
+[node name="WidthSpinBox" type="SpinBox" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=911136457]
+layout_mode = 2
+value = 20.0
+rounded = true
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1953396300]
+layout_mode = 2
+text = "Height"
+
+[node name="HeightSpinBox" type="SpinBox" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1902523279]
+layout_mode = 2
+value = 20.0
+rounded = true
+
+[node name="Button" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=1385488064]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Send command"
+text = "Generate map"
 
 [node name="CheckButton" type="CheckBox" parent="VBoxContainer" unique_id=1391158052]
 layout_mode = 2
@@ -48,11 +72,12 @@ layout_mode = 2
 layout_mode = 2
 text = "Python version: "
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PythonVersionHBox" unique_id=637623453]
+[node name="PythonVersionLineEdit" type="LineEdit" parent="VBoxContainer/PythonVersionHBox" unique_id=637623453]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Enter python version as \"python3\", \"python\", \"python3.11\" or similar"
+text = "python3"
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=1819886069]
 disable_3d = true
@@ -64,5 +89,5 @@ file_mode = 2
 access = 2
 show_hidden_files = true
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
