@@ -25,6 +25,8 @@ const TEAMNAME_COLOR = preload("uid://b4tgg06vigtud")
 @onready var label: Label = $Teams/Label
 @onready var time_label: RichTextLabel = $Teams/TimeLabel
 @onready var coordinate_label: Label = $Teams/CoordinateLabel
+@onready var command_handler: Panel = $CommandCanvasLayer/CommandHandler
+
 
 func _physics_process(delta: float) -> void:
 	current_time += delta * speed_control
@@ -171,3 +173,7 @@ func _on_player_string_change(player_string: String, team_name: String) -> void:
 	for child: TeamnameColorLabel in teams_box.get_children():
 		if child.team_name_string == team_name:
 			child.update_name_label(player_string)
+
+
+func _on_canvas_layer_2_command_button_pressed() -> void:
+	command_handler.show()

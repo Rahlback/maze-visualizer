@@ -1,11 +1,17 @@
-extends Control
+extends Panel
 
 @onready var label: RichTextLabel = $Label
 @onready var file_dialog: FileDialog = $FileDialog
-@onready var current_dir_label: Label = $VBoxContainer/HBoxContainer/CurrentDirLabel
+@onready var current_dir_label: Label = $CurrentDirHBox/CurrentDirLabel
 @onready var python_version_line_edit: LineEdit = $VBoxContainer/PythonVersionHBox/PythonVersionLineEdit
 @onready var width_spin_box: SpinBox = $VBoxContainer/VBoxContainer/HBoxContainer/WidthSpinBox
 @onready var height_spin_box: SpinBox = $VBoxContainer/VBoxContainer/HBoxContainer/HeightSpinBox
+@onready var command_run_tab_container: TabContainer = $CommandRunTabContainer
+
+signal map_generated
+signal solutions_ran
+
+const COMMAND_OUTPUT = preload("uid://fv6tsipspcrx")
 
 var pipe_process
 var wsl_localhost = "//wsl.localhost/"
@@ -28,8 +34,20 @@ var micro_mouse_dir := "":
 			individual_directories.remove_at(1)
 			wsl_local_path = "/".join(individual_directories)
 			use_wsl = true
-		
-		
+
+func convert_path_to_wsl_path(windows_path: String) -> String:
+	var find_actual_path = windows_path.replace("//", "/")
+	var individual_directories = find_actual_path.split("/")
+	if len(individual_directories) == 1:
+		return ""
+
+	if "wsl" in individual_directories[1]:
+		individual_directories.remove_at(1)
+		individual_directories.remove_at(1)
+		return "/".join(individual_directories)
+	
+	return ""
+
 ## deprecated. Will return the name of the default WSL installation
 func get_wsl_default_distro() -> String:
 	if pipe_process:
@@ -62,10 +80,11 @@ func get_wsl_default_distro() -> String:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	if SaveHandler.maze_generator_dir != "":
 		micro_mouse_dir = SaveHandler.maze_generator_dir
 		file_dialog.set_current_dir(micro_mouse_dir)
+		print("Using micro mouse dir: ", micro_mouse_dir)
 
 func get_maze_py_file_location() -> String:
 	var maze_py_file_location = "%s/maze.py" % micro_mouse_dir
@@ -96,28 +115,75 @@ func generate_new_map(python_command: String, loops := false, map_size := "") ->
 		
 	return "".join(output)
 
-func run_solution(python_command: String, path_to_solution: String, maze_number) -> String:
+func run_solution(python_command: String, path_to_solution: String, maze_path: String) -> String:
 	var output = []
-	if micro_mouse_dir == "":
+	if micro_mouse_dir != "":
 		var maze_py_file_location = get_maze_py_file_location()
 		var command_args = ["/C"]
+		
+		if wsl_localhost in path_to_solution:
+			path_to_solution = convert_path_to_wsl_path(path_to_solution)
+		
+		if wsl_localhost in maze_path:
+			maze_path = convert_path_to_wsl_path(maze_path)
 		
 		if use_wsl:
 			command_args.append("wsl")
 		
-		command_args += [python_command, maze_py_file_location, "--run", "maze_%s" % str(maze_number)]
+		command_args += [python_command, maze_py_file_location, "--run", maze_path]
 		command_args += ["--solution", path_to_solution]
+		
+		print("Run solution: ", OS.execute("CMD.exe", command_args, output, true))
+		output.insert(0, "CMD.exe %s\n\n" % " ".join(command_args))
+	else:
+		print("No micro mouse dir")
 	
-	
-	
-	return ""
+	return "".join(output)
 
-func _on_button_pressed() -> void:
+func _on_generate_map_button_pressed() -> void:
 	var python_command := python_version_line_edit.get_text()
 	var map_size := "%d,%d" % [width_spin_box.get_value(), height_spin_box.get_value()]
 	label.text = generate_new_map(python_command, true, map_size)
+	map_generated.emit()
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
 	micro_mouse_dir = dir
 	print(micro_mouse_dir)
 	SaveHandler.save_maze_generator_dir(micro_mouse_dir)
+
+@onready var solution_files_select_dialog: FileDialog = $SolutionFilesSelectDialog
+#@onready var run_solution_output: RichTextLabel = $RunSolutionOutput
+
+func _on_solution_files_select_dialog_files_selected(paths: PackedStringArray) -> void:
+	print(paths)
+	var python_command := python_version_line_edit.get_text()
+	
+	var tab_index := 0
+	for path in paths:
+		var new_command_output : CommandOutput = COMMAND_OUTPUT.instantiate()
+		command_run_tab_container.add_child(new_command_output)
+		command_run_tab_container.set_tab_title(tab_index, path.get_file().replace(".py", ""))
+		tab_index += 1
+		var response := run_solution(python_command, path, "maze_8")
+		#print(response)
+		#run_solution_output.text = response
+		#new_command_output.set_command_used()
+		if response.length() > 2000:
+			var new_response := response.substr(0, 500)
+			new_response += "\n\n Skipping lines... \n\n"
+			response = response.substr(response.length() - 1500)
+			response = new_response + response
+			
+		new_command_output.set_command_output(response)
+	
+	if len(paths) > 0:
+		solutions_ran.emit()
+		
+
+
+func _on_run_solution_button_pressed() -> void:
+	solution_files_select_dialog.show()
+
+
+func _on_close_button_pressed() -> void:
+	hide()

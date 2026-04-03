@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://d0gp5apdo1rja" path="res://scripts/moveable_camera.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://ck7isv4o4biag" path="res://scenes/menus.tscn" id="3_h2yge"]
 [ext_resource type="Theme" uid="uid://cmj011g2sf3ls" path="res://themes/main_theme.tres" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://binvpe6iejrdb" path="res://scenes/command_handler/command_handler.tscn" id="6_7mycd"]
 
 [sub_resource type="Gradient" id="Gradient_ig7tw"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -111,6 +112,14 @@ grow_vertical = 0
 theme = ExtResource("5_lquwl")
 text = "0, 0"
 
+[node name="CommandCanvasLayer" type="CanvasLayer" parent="." unique_id=232906565]
+layer = 2
+
+[node name="CommandHandler" parent="CommandCanvasLayer" unique_id=500668876 instance=ExtResource("6_7mycd")]
+visible = false
+mouse_filter = 1
+
+[connection signal="command_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_command_button_pressed"]
 [connection signal="file_dialog_dir_selected" from="CanvasLayer2" to="." method="_on_canvas_layer_2_file_dialog_dir_selected"]
 [connection signal="pause_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_pause_button_pressed"]
 [connection signal="play_button_pressed" from="CanvasLayer2" to="." method="_on_canvas_layer_2_play_button_pressed"]

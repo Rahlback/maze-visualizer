@@ -13,6 +13,7 @@ signal play_button_pressed
 signal pause_button_pressed
 signal playback_speed_changed(speed: float)
 signal reload_button_pressed
+signal command_button_pressed
 
 var prevent_play_pressed := true
 var auto_reload := false
@@ -133,3 +134,7 @@ func _on_game_menu_button_pressed() -> void:
 
 func _on_close_menu_button_pressed() -> void:
 	_on_game_menu_button_pressed()
+
+
+func _on_command_button_pressed() -> void:
+	command_button_pressed.emit()

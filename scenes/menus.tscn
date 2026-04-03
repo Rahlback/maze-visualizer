@@ -140,6 +140,12 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="Menus/GameMenuPanel" unique_id=47602493]
 layout_mode = 2
 
+[node name="CommandButton" type="Button" parent="Menus/GameMenuPanel/VBoxContainer" unique_id=251820985]
+layout_mode = 2
+theme = ExtResource("2_chs3c")
+theme_override_font_sizes/font_size = 48
+text = "Run commands"
+
 [node name="CheckBox" type="CheckBox" parent="Menus/GameMenuPanel/VBoxContainer" unique_id=1994572765]
 layout_mode = 2
 button_pressed = true
@@ -207,6 +213,7 @@ wait_time = 2.0
 [connection signal="button_up" from="Menus/VBoxContainer/HBoxContainer2/LoadMaps" to="." method="_on_load_maps_button_up"]
 [connection signal="toggled" from="Menus/VBoxContainer/HBoxContainer2/AutoReloadCheckbox" to="." method="_on_auto_reload_checkbox_toggled"]
 [connection signal="pressed" from="Menus/VBoxContainer/GameMenuButton" to="." method="_on_game_menu_button_pressed"]
+[connection signal="pressed" from="Menus/GameMenuPanel/VBoxContainer/CommandButton" to="." method="_on_command_button_pressed"]
 [connection signal="toggled" from="Menus/GameMenuPanel/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="Menus/GameMenuPanel/VBoxContainer/CloseMenuButton" to="." method="_on_close_menu_button_pressed"]
 [connection signal="pressed" from="Menus/GameMenuPanel/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

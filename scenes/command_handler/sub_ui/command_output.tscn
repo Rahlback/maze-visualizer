@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://fv6tsipspcrx"]
+
+[ext_resource type="Script" uid="uid://cgau4aicggvuw" path="res://scenes/command_handler/sub_ui/command_output.gd" id="1_qihtg"]
+
+[node name="CommandOutput" type="VBoxContainer" unique_id=1331430300]
+script = ExtResource("1_qihtg")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=168180538]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="CommandUsedLabel" type="RichTextLabel" parent="MarginContainer" unique_id=120913468]
+layout_mode = 2
+scroll_active = false
+
+[node name="CommandOutputLabel" type="RichTextLabel" parent="MarginContainer" unique_id=1759294717]
+layout_mode = 2
+size_flags_vertical = 3
