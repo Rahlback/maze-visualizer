@@ -14,7 +14,7 @@ config/name="MazeVisualizer"
 run/main_scene="uid://bfs8d0ruh4kwc"
 config/features=PackedStringArray("4.6", "Forward Plus")
 run/max_fps=120
-config/icon="res://icon.svg"
+config/icon="uid://dx6ug676mv5rr"
 
 [autoload]
 
