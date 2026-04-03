@@ -7,6 +7,8 @@ extends Panel
 @onready var width_spin_box: SpinBox = $VBoxContainer/VBoxContainer/HBoxContainer/WidthSpinBox
 @onready var height_spin_box: SpinBox = $VBoxContainer/VBoxContainer/HBoxContainer/HeightSpinBox
 @onready var command_run_tab_container: TabContainer = $CommandRunTabContainer
+@onready var maze_select_dialog: FileDialog = $MazeSelectDialog
+@onready var selected_maze_dir: RichTextLabel = $VBoxContainer/HBoxContainer/SelectedMazeDir
 
 signal map_generated
 signal solutions_ran
@@ -18,6 +20,17 @@ var wsl_localhost = "//wsl.localhost/"
 var wsl_default_distro := ""
 var use_wsl := false
 var wsl_local_path := ""
+
+var currently_selected_maze_dir := "":
+	set(val):
+		if wsl_localhost in val:
+			currently_selected_maze_dir = convert_path_to_wsl_path(val)
+		else:
+			currently_selected_maze_dir = val
+		if use_wsl:
+			currently_selected_maze_dir = convert_windows_drive_path_to_wsl(currently_selected_maze_dir)
+		selected_maze_dir.text = currently_selected_maze_dir
+
 
 var micro_mouse_dir := "":
 	set(val):
@@ -34,6 +47,8 @@ var micro_mouse_dir := "":
 			individual_directories.remove_at(1)
 			wsl_local_path = "/".join(individual_directories)
 			use_wsl = true
+		else:
+			use_wsl = false
 
 func convert_path_to_wsl_path(windows_path: String) -> String:
 	var find_actual_path = windows_path.replace("//", "/")
@@ -47,6 +62,15 @@ func convert_path_to_wsl_path(windows_path: String) -> String:
 		return "/".join(individual_directories)
 	
 	return ""
+
+## Converts Windows paths that start with a drive to a WSL path that starts with
+## /mnt/drive/
+## Example: C:/Users/Documents -> /mnt/c/Users/Documents
+func convert_windows_drive_path_to_wsl(path: String) -> String:
+	if ":" in path:
+		var drive = "%s" % path[0]
+		return path.replace("%s:" % drive, "/mnt/%s" % drive.to_lower())
+	return path
 
 ## deprecated. Will return the name of the default WSL installation
 func get_wsl_default_distro() -> String:
@@ -164,7 +188,7 @@ func _on_solution_files_select_dialog_files_selected(paths: PackedStringArray) -
 		command_run_tab_container.add_child(new_command_output)
 		command_run_tab_container.set_tab_title(tab_index, path.get_file().replace(".py", ""))
 		tab_index += 1
-		var response := run_solution(python_command, path, "maze_8")
+		var response := run_solution(python_command, path, currently_selected_maze_dir)
 		#print(response)
 		#run_solution_output.text = response
 		#new_command_output.set_command_used()
@@ -182,8 +206,22 @@ func _on_solution_files_select_dialog_files_selected(paths: PackedStringArray) -
 
 
 func _on_run_solution_button_pressed() -> void:
+	if currently_selected_maze_dir == "":
+		return
 	solution_files_select_dialog.show()
 
 
 func _on_close_button_pressed() -> void:
 	hide()
+
+
+func _on_maze_select_dialog_dir_selected(dir: String) -> void:
+	currently_selected_maze_dir = dir
+
+
+func _on_select_maze_button_pressed() -> void:
+	maze_select_dialog.show()
+
+
+func _on_button_pressed() -> void:
+	file_dialog.show()
