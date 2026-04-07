@@ -104,7 +104,7 @@ func compare_floats(a: float, b: float) -> bool:
 var target = Vector2.ZERO
 var time_index = 0
 var rotate_first := false
-var rotate_degrees_per_second : float = 0
+var rotate_degrees_per_second : float = (PI) / TURN_90_TIME
 var current_move: Move = null
 var rotate_towards: float = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
