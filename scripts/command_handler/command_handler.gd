@@ -9,6 +9,7 @@ extends Panel
 @onready var command_run_tab_container: TabContainer = $CommandRunTabContainer
 @onready var maze_select_dialog: FileDialog = $MazeSelectDialog
 @onready var selected_maze_dir: RichTextLabel = $VBoxContainer/HBoxContainer/SelectedMazeDir
+@onready var use_wsl_button: CheckBox = $VBoxContainer/UseWslButton
 
 signal map_generated
 signal solutions_ran
@@ -123,7 +124,7 @@ func generate_new_map(python_command: String, loops := false, map_size := "") ->
 		var maze_py_file_location = get_maze_py_file_location()
 		var command_args = ["/C"]
 		
-		if use_wsl:
+		if use_wsl or use_wsl_button.button_pressed:
 			command_args.append("wsl")
 		
 		command_args += [python_command, maze_py_file_location, "--generate"]
@@ -134,7 +135,7 @@ func generate_new_map(python_command: String, loops := false, map_size := "") ->
 		
 		if loops:
 			command_args.append("--loops")
-
+		
 		OS.execute("CMD.exe", command_args, output, true)
 		
 	return "".join(output)
@@ -147,11 +148,13 @@ func run_solution(python_command: String, path_to_solution: String, maze_path: S
 		
 		if wsl_localhost in path_to_solution:
 			path_to_solution = convert_path_to_wsl_path(path_to_solution)
+		elif use_wsl:
+			path_to_solution = convert_windows_drive_path_to_wsl(path_to_solution)
 		
 		if wsl_localhost in maze_path:
 			maze_path = convert_path_to_wsl_path(maze_path)
 		
-		if use_wsl:
+		if use_wsl or use_wsl_button.button_pressed:
 			command_args.append("wsl")
 		
 		command_args += [python_command, maze_py_file_location, "--run", maze_path]
@@ -181,13 +184,13 @@ func _on_file_dialog_dir_selected(dir: String) -> void:
 func _on_solution_files_select_dialog_files_selected(paths: PackedStringArray) -> void:
 	print(paths)
 	var python_command := python_version_line_edit.get_text()
-	
-	var tab_index := 0
+
 	for path in paths:
 		var new_command_output : CommandOutput = COMMAND_OUTPUT.instantiate()
+		new_command_output.set_name(path.get_file().replace(".py", ""))
 		command_run_tab_container.add_child(new_command_output)
-		command_run_tab_container.set_tab_title(tab_index, path.get_file().replace(".py", ""))
-		tab_index += 1
+		#command_run_tab_container.set_tab_title(tab_index, path.get_file().replace(".py", ""))
+		#tab_index += 1
 		var response := run_solution(python_command, path, currently_selected_maze_dir)
 		#print(response)
 		#run_solution_output.text = response
@@ -208,6 +211,8 @@ func _on_solution_files_select_dialog_files_selected(paths: PackedStringArray) -
 func _on_run_solution_button_pressed() -> void:
 	if currently_selected_maze_dir == "":
 		return
+	for child in command_run_tab_container.get_children():
+			child.queue_free()
 	solution_files_select_dialog.show()
 
 

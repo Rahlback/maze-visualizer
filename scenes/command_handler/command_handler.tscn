@@ -115,9 +115,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Generate map"
 
-[node name="CheckButton" type="CheckBox" parent="VBoxContainer" unique_id=1391158052]
+[node name="UseWslButton" type="CheckBox" parent="VBoxContainer" unique_id=1391158052]
 layout_mode = 2
-text = "Use WSL (Not used)"
+text = "Force WSL"
 
 [node name="HSeparator3" type="HSeparator" parent="VBoxContainer" unique_id=290672451]
 layout_mode = 2
@@ -198,7 +198,7 @@ access = 2
 filters = PackedStringArray("*.py;text/x-python ")
 
 [node name="MazeSelectDialog" type="FileDialog" parent="." unique_id=2029457679]
-title = "Select maze directory"
+title = "Open a Directory"
 initial_position = 2
 size = Vector2i(1200, 720)
 file_mode = 2
